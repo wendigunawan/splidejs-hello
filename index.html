@@ -1,0 +1,69 @@
+<html>
+
+
+<title>Splide JS - Hello</title>
+
+<link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css">
+<script src="node_modules/@splidejs/splide/dist/js/splide.min.js"></script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+<body>
+    <div class="splide">
+        <div class="splide__track">
+            <ul class="splide__list" id="player-container">
+                <li class="splide__slide"></li>
+                <li class="splide__slide"></li>
+                <li class="splide__slide"></li>
+                <li class="splide__slide"></li>
+                <li class="splide__slide"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+
+    window.onYouTubePlayerAPIReady = function() {
+    //   onYouTubePlayer();
+        console.log('x');
+        player = new YT.Player(playerVideoId, {
+            height: '390',
+            width: '640',
+            videoId: 'M7lc1UVf-VE',
+            playerVars: {
+                'playsinline': 1
+            },
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        
+    };
+    
+
+	document.addEventListener( 'DOMContentLoaded', function () {
+        $('.splide__slide').each(function(index, element){
+
+            let playerVideoId = "player-video-"+index;
+
+            $(this).attr('id', playerVideoId);
+
+            console.log(playerVideoId);
+
+            
+
+        });
+        
+        new Splide( '.splide' ).mount();
+
+	} );
+
+    function onPlayerStateChange(event){
+        console.log(event);
+    }
+
+
+</script>
+
+</html>
