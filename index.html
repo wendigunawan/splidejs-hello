@@ -16,46 +16,79 @@
             </ul>
         </div>
     </div>
+    <div id="player-container2"></div>
 </body>
 
+<script id="iframe-demo" src="https://www.youtube.com/iframe_api"></script>
 <script type="text/javascript">
 
     var players = []
 
-    window.onYouTubePlayerAPIReady = function () {
-        console.log('x2');
+    var onYouTubeIframeAPIReady = function () {
+        console.log('onYouTubeIframeAPIReady');
         $('.splide__slide').each(function (index, element) {
             let playerVideoId = "player-video-" + index;
 
-            var player = new YT.Player(playerVideoId, {
+            let player = new YT.Player(playerVideoId, {
                 events: {
                     'onStateChange': onPlayerStateChange
                 }
             });
 
-            players.push(player)
+            players.push(player);
         });
     };
 
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('x1');
+        console.log('DOMContentLoaded');
         $('.splide__slide').each(function (index, element) {
             let playerVideoId = "player-video-" + index;
             $(this).attr('id', playerVideoId);
 
             var $iframe = `<iframe id="${playerVideoId}" type="text/html" width="640" height="390"
         src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1"
-        frameborder="0"></iframe>`;      
+        frameborder="0"></iframe>`;
+
             $(this).html($iframe);
         });
 
-        new Splide('.splide').mount();
+        let $splide = new Splide('.splide').mount();
+
+        $splide.on('move', function(index) {
+            // do something
+            console.log('splide on move');
+            console.log(index);
+            players[index].playVideo();
+        } );
 
     });
 
+    const PLAYER_STATUS_UNSTARTED = -1;
+    const PLAYER_STATUS_ENDED = 0;
+    const PLAYER_STATUS_PLAYING = 1;
+    const PLAYER_STATUS_PAUSED = 2;
+    const PLAYER_STATUS_BUFFERING = 3;
+    const PLAYER_STATUS_CUED = 5;
+
     function onPlayerStateChange(event) {
-        console.log('x3');
-        console.log(event);
+        console.log('onPlayerStateChange');
+        console.log(event.data);
+        
+        let playerStatus = event.data;
+
+        if (playerStatus == PLAYER_STATUS_UNSTARTED) {
+             // unstarted
+        } else if (playerStatus == PLAYER_STATUS_ENDED) {
+            // ended
+        } else if (playerStatus == PLAYER_STATUS_PLAYING) {
+            // playing
+        } else if (playerStatus == PLAYER_STATUS_PAUSED) {
+            // paused
+        } else if (playerStatus == PLAYER_STATUS_BUFFERING) {
+            // buffering
+        } else if (playerStatus == PLAYER_STATUS_CUED) {
+            // video cued
+        }
     }
 
 
