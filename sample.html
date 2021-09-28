@@ -5,6 +5,10 @@
     <div id="player"></div>
 
     <script>
+
+      document.addEventListener( 'DOMContentLoaded', function () {
+        console.log('x1');
+      });
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -16,6 +20,7 @@
       //    after the API code downloads.
       var player;
       function onYouTubeIframeAPIReady() {
+        console.log('x2');
         player = new YT.Player('player', {
           height: '390',
           width: '640',
