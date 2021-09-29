@@ -1,6 +1,6 @@
 # About
 
-This is another sample case to use splide js
+This is another sample case to use [splide js](https://splidejs.com/)
 
 ## Installation
 
